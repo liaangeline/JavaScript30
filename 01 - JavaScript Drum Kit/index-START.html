@@ -59,15 +59,15 @@
   <audio data-key="76" src="sounds/tink.wav"></audio>
 
 <script>
-
 // listen to when the user presses down on the key
 // get the event/data of the key the user pressed 
 window.addEventListener('keydown', function(e){
 
 // depending on which key the user selects, tries to find a match to the ones above
-// gets the information
+// gets the information from the audio element
 const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
-console.log(audio);
+// get the data-key from the class key
+const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
 
 // if there's no match (ie. a key was pressed that are not listed)
 // stop the function from running
@@ -80,6 +80,11 @@ audio.currentTime= 0;
 
 // if we have the audio element, play the sound
 audio.play();
+
+// on keydown, add the class playing, which adds style elements
+key.classList.add('playing');
+
+
 });
 
 </script>
