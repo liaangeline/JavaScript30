@@ -68,8 +68,19 @@ window.addEventListener('keydown', function(e){
 // gets the information
 const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
 console.log(audio);
-})
-;
+
+// if there's no match (ie. a key was pressed that are not listed)
+// stop the function from running
+if (!audio) return;
+
+// rewind audio to the start.
+// ie. if pressed multiple times, rewinds so the user doesn't have 
+// to wait until the first sound finishes
+audio.currentTime= 0;
+
+// if we have the audio element, play the sound
+audio.play();
+});
 
 </script>
 
