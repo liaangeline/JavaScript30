@@ -92,8 +92,6 @@ function removeTransition(e){
 
   // skip if it's not a transform
   if(e.propertyName !== 'transform') return;
-  console.log(e.propertyName);
-  console.log(e);
 
   // remove the style class
   this.classList.remove('playing');
