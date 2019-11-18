@@ -7,7 +7,8 @@
 </head>
 <body>
 
-<!-- keys - data-key determines the match for the audio. -->
+  <!-- Find the keycode using this site. http://keycode.info/ (this is how we get the data-key number)-->
+
   <div class="keys">
     <div data-key="65" class="key">
       <kbd>A</kbd>
@@ -47,7 +48,8 @@
     </div>
   </div>
 
-<!-- audio, plays if there is a data-key match from the list above -->
+  <!-- data-key, essentially customized, to read the code easier. data-... -->
+  <!-- data-key is being used to match the sound with the key -->
   <audio data-key="65" src="sounds/clap.wav"></audio>
   <audio data-key="83" src="sounds/hihat.wav"></audio>
   <audio data-key="68" src="sounds/kick.wav"></audio>
@@ -60,55 +62,23 @@
 
 <script>
 
-function playSound(e) {
-  // depending on which key the user selects, tries to find a match to the ones above
-  // gets the information from the audio element
-  const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
-  // get the data-key from the class key
-  const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+// listen for the key down event, run the funtion that will give the event
+  window.addEventListener('keydown', function (e) {
 
-  // if there's no match (ie. a key was pressed that are not listed)
-  // stop the function from running
-  if (!audio) return;
+    // select the audio (data-key) that matches with the keycode
+    // this uses an attribute selector
+    const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
 
-  // rewind audio to the start.
-  // ie. if pressed multiple times, rewinds so the user doesn't have 
-  // to wait until the first sound finishes
-  audio.currentTime= 0;
+    // if there is no audio selected (ie. Q key is pressed, but is not a letter on the list)
+    // stop the function from running
+    if(!audio) return;
 
-  // if we have the audio element, play the sound
-  audio.play();
+    // play audio
+    audio.play();
 
-  // on keydown, add the class playing, which adds style elements
-  key.classList.add('playing');
-
-}
-
-// get all elements with the class key
-const keys = document.querySelectorAll('.key');
-
-//create function to remove transition
-function removeTransition(e){
-
-  // skip if it's not a transform
-  if(e.propertyName !== 'transform') return;
-
-  // remove the style class
-  this.classList.remove('playing');
-}
-
-// create a loop and listen to each item
-// each key gets an event listener added to it
-// when the transition ends, remove transition
-keys.forEach(key => key.addEventListener('transitionend', removeTransition));
-
-// listen to when the user presses down on the key
-// get the event/data of the key the user pressed 
-window.addEventListener('keydown', playSound);
+  });
 
 </script>
 
-
 </body>
 </html>
-
