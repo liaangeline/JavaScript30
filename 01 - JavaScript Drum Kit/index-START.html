@@ -61,49 +61,50 @@
   <audio data-key="76" src="sounds/tink.wav"></audio>
 
 <script>
-
-// listen for the key down event, run the funtion that will give the event
-  window.addEventListener('keydown', function (e) {
-
-    // select the audio (data-key) that matches with the keycode
-    // this uses an attribute selector
-    const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
-
-    // select the elements with the class key and the data element that matches
-    const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
-
-
-    // if there is no audio selected (ie. Q key is pressed, but is not a letter on the list)
-    // stop the function from running
-    if(!audio) return; 
-
-    // rewind to the start
-    audio.currentTime = 0;
-
-    // play audio
-    audio.play();
-
-    // add the CSS class playing
-    key.classList.add('playing');
-
-  });
-
-  function removeTransition(e) {
-    // if the event property name isn't transform, skip. 
-    if (e.propertyName !== 'transform') return;
-    // "this" is the key.
-    // remove class playing
-    this.classList.remove('playing');
-  }
-
-  // add transition end event. (the element was transitioned, ie.changed border and size)
-  // we can listen on each key or when the transition end event happens
   
-  // select all elements with the class key
-  const keys = document.querySelectorAll('.key');
-  // go through each .key and add the event listener 
-  // when the  transition end run the function removeTransition
-  keys.forEach(key => key.addEventListener('transitionend', removeTransition))
+function playSound(e){
+  // select the audio (data-key) that matches with the keycode
+  // this uses an attribute selector
+  const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+
+  // select the elements with the class key and the data element that matches
+  const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+
+
+  // if there is no audio selected (ie. Q key is pressed, but is not a letter on the list)
+  // stop the function from running
+  if(!audio) return; 
+
+  // rewind to the start
+  audio.currentTime = 0;
+
+  // play audio
+  audio.play();
+
+  // add the CSS class playing
+  key.classList.add('playing');
+
+}
+
+function removeTransition(e) {
+  // if the event property name isn't transform, skip. 
+  if (e.propertyName !== 'transform') return;
+  // "this" is the key.
+  // remove class playing
+  this.classList.remove('playing');
+}
+
+// add transition end event. (the element was transitioned, ie.changed border and size)
+// we can listen on each key or when the transition end event happens
+
+// select all elements with the class key
+const keys = document.querySelectorAll('.key');
+// go through each .key and add the event listener 
+// when the  transition end run the function removeTransition
+keys.forEach(key => key.addEventListener('transitionend', removeTransition))
+
+// listen for the key down event, run the function that will play the sound
+window.addEventListener('keydown', playSound);
 
 </script>
 
