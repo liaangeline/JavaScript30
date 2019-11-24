@@ -73,7 +73,38 @@
   </style>
 
   <script>
-    
+
+    const secondHand = document.querySelector('.second-hand');
+    const minuteHand = document.querySelector('.min-hand');
+    const hourHand = document.querySelector('.hour-hand');
+
+    function setDate() {
+      // create a date object
+      const now = new Date();
+
+      // get the seconds of the current minute
+      const seconds = now.getSeconds();
+      // second/60 will give us the degree
+      // add 90 to offset the initial 90deg style
+      const secondsDegree = ((seconds / 60) * 360) + 90;
+      // style the seconds hand
+      secondHand.style.transform = `rotate(${secondsDegree}deg)`;
+
+      // get the current minute
+      const minutes = now.getMinutes();
+      const minutesDegree = ((minutes / 60) * 360) + 90;
+      minuteHand.style.transform = `rotate(${minutesDegree}deg)`;
+
+      // get the current hour
+      const hours = now.getHours();
+      const hoursDegree = ((hours / 12) * 360) + 90;
+      hourHand.style.transform = `rotate(${hoursDegree}deg)`;
+
+    }
+
+    // Run the setDate function every one second.
+    // (1000 millisenconds = 1 sec)
+    setInterval(setDate, 1000)
 
   </script>
 </body>
