@@ -67,6 +67,26 @@
   </style>
 
   <script>
+    // get all the inputs on the page
+    // note: Node List is different from an Array, array has more options
+    const inputs = document.querySelectorAll('.controls input');
+
+    function handleUpdate(){
+      // dataset - object that contains all the data attributes from that element.
+      // ie. gets anything that has a "data-..."
+      // get data-sizing (for sliders) or nothing (for hexcode)
+      const suffix = this.dataset.sizing || '';
+      // change the CSS variable value, add the suffix (px) at the end
+      document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
+    }
+
+    // changes when you let go of the slider
+    inputs.forEach(input => input.addEventListener('change', handleUpdate));
+
+    // changes as you move the slider
+    inputs.forEach(input => input.addEventListener('mousemove', handleUpdate));
+      
+ 
   </script>
 
 </body>
